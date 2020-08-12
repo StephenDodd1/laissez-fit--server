@@ -29,9 +29,6 @@ app.use(
     origin: CLIENT_ORIGIN,
   })
 );
-app.get("/", (req, res) => {
-  res.send("Hello, world!");
-});
 
 app.use(articlesRouter);
 app.use(commentsRouter);
@@ -48,8 +45,12 @@ app.use(function errorHandler(error, req, res, next) {
   }
   res.status(500).json(response);
 });
-
 app.get("*", function (req, res, next) {
   if (req.url === "/") return next();
 });
+app.get("/", (req, res) => {
+  res.send("Hello, world!");
+});
+
+
 module.exports = app;

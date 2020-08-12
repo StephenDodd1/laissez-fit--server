@@ -1,4 +1,4 @@
-INSERT INTO articles (id, content, genre, author)
+INSERT INTO articles (id, title, content, type, author)
 VALUES
   (1, 'Test Article 1', 'Test Article is Short', 'Fitness', 'Stephen Kyle Dodd'),
   (2, 'Test Article 2', 'Test Article is Short', 'Fitness', 'Stephen Kyle Dodd'),
