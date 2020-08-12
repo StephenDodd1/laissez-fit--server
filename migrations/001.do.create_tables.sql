@@ -50,7 +50,7 @@ CREATE TABLE comments (
 );
 
 DROP TABLE IF EXISTS articles;
-
+DROP TYPE IF EXISTS genre;
 CREATE TYPE genre AS ENUM ('Fitness', 'Nutrition', 'Metrics');
 
 CREATE TABLE articles(
