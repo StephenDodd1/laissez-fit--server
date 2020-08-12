@@ -6,8 +6,12 @@ const helmet = require("helmet");
 
 const { NODE_ENV, CLIENT_ORIGIN, DATABASE_URL } = require("./config");
 
-const app = express();
+const articlesRouter = require("./articles/articles-router")
+const commentsRouter = require("./comments/comments-router")
+const trackingRouter = require("./tracking/tracking-router")
+const usersRouter = require("./users/users-router")
 
+const app = express();
 const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 const knex = require("knex");
 

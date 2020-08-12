@@ -51,4 +51,4 @@ trackingRouter
       car, fib, pro, stp, slp, act, men, dia };
     TrackingService.trackingUpdate(knex, stats)
   })
-  
+  module.exports = trackingRouter;

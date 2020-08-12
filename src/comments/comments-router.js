@@ -29,3 +29,5 @@ commentsRouter.route('api/comment/commentId').delete((req,res,next) => {
   const comment_id = req.params.commentId;
   CommentsService.deleteComment(knex, comment_id)
 })
+
+module.exports = commentsRouter;

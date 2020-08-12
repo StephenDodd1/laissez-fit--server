@@ -22,3 +22,5 @@ articlesRouter.route("/api/article").post(jsonBodyParser, (req, res, next) => {
   }
   ArticlesService.createArticle(knex, article);
 });
+
+module.exports = articlesRouter;
