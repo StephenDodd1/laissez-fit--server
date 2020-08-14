@@ -3,7 +3,7 @@ const ArticlesService = {
   return knex("articles")
     .select(
       "articles.id",
-      "articles.type",
+      "articles.topic",
       "articles.title",
       "articles.content",
       "articles.article_date"
@@ -13,7 +13,7 @@ const ArticlesService = {
   return knex
     .select(      
     "articles.id",
-    "articles.type",
+    "articles.topic",
     "articles.title",
     "articles.content",
     "articles.article_date"
@@ -22,6 +22,8 @@ const ArticlesService = {
     .where("title", "like", `%${searchTerm}%`)
     .orWhere("content", "like", `%${searchTerm}%`);
 },
-
+  createArticle(knex, article) {
+    return knex.into("articles").insert(article);
+},
 }
 module.exports = ArticlesService;

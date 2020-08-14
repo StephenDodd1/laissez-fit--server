@@ -6,7 +6,7 @@ const xss = require("xss");
 
 const serializeArticles = (article) => ({
   articleId: article.id,
-  type: article.type,
+  topic: article.topic,
   title: xss(article.title),
   content: xss(article.content),
   author: article.author,
@@ -23,6 +23,7 @@ articlesRouter.route("/api/articles").get((req, res, next) => {
     console.log(articles)
     res.status(200).json(articles.map(serializeArticles))
   })
+  .catch(next)
 });
 articlesRouter.route("/api/article/").get(jsonBodyParser, (req, res, next) => {
   const knex = req.app.get("db");
@@ -40,12 +41,22 @@ articlesRouter.route("/api/article/").get(jsonBodyParser, (req, res, next) => {
 });
 articlesRouter.route("/api/article").post(jsonBodyParser, (req, res, next) => {
   const knex = req.app.get("db");
-  const { title, content } = req.body;
+  const { topic, title, content } = req.body;
   const article = {
+    topic,
     title,
     content
   }
-  ArticlesService.createArticle(knex, article);
+  ArticlesService.createArticle(knex, article)
+  .then((article) => {
+    if (!article) {
+      res.status(404).json({
+        error: { message: "article was not created" },
+      });
+    }
+    res.status(200).json(article);
+  })
+  .catch(next);
 });
 
 module.exports = articlesRouter;

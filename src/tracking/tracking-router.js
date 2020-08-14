@@ -4,20 +4,31 @@ const trackingRouter = express.Router();
 const jsonBodyParser = express.json();
 const xss = require("xss");
 
-trackingRouter.route("/api/tracking/:tracking_date").get((req, res, next) => {
+trackingRouter.route("/api/tracking/:user_id/:tracking_date").get((req, res, next) => {
   const knex = req.app.get("db");
   const date = req.params.tracking_date;
-  TrackingService.getTracking(knex, date);
+  const user_id = req.params.user_id;
+  TrackingService.getTrackingByDate(knex, date, user_id)
+  .then(tracking => {
+    if(!tracking) {
+      return res.status(404).json({
+        error: { message: "Tracking not available" }
+      })
+    }
+    return res.status(200).json(tracking)
+  })
+  .catch(next)
 });
 //post to new day
 trackingRouter
-  .route("/api/tracking/:tracking_date")
+  .route("/api/tracking/:user_id/:tracking_date")
   .post(jsonBodyParser, (req, res, next) => {
-    const tracking_date = this.params.tracking_date;
+    const knex = req.app.get('db')
+    const tracking_date = req.params.tracking_date;
     const { user_id, rhr, mhr, bps, bpd, bls, 
       ins, lbs, cal, fat, car, fib, pro, stp, 
       slp, act, men, dia } = req.body;
-    const stats = {
+    const data = {
       tracking_date,
       user_id,
       rhr, // resting heart rate
@@ -38,17 +49,45 @@ trackingRouter
       men, // mental/emotional/physical state
       dia  // diary of day 
     }
-    TrackingService.postTracking(knex, stats)
+    TrackingService.createTrackingByDate(knex, data)
+      .then(tracking => {
+      if(!tracking) {
+        return res.status(404).json({
+          error: { message: "Tracking not available" }
+        })
+      }
+      return res.status(200).json(tracking)
+    })
+    .catch(next)
   });
   //update current or past day
-  trackingRouter.route("/api/tracking/:tracking_date").patch((req,res,next) => {
-    const tracking_date = this.params.tracking_date;
-    const { user_id, rhr, mhr, bps, bpd, bls, 
+  trackingRouter.route("/api/tracking/:user_id/:tracking_date").patch(jsonBodyParser, (req,res,next) => {
+    const knex = req.app.get('db');
+    const { id, rhr, mhr, bps, bpd, bls, 
       ins, lbs, cal, fat, car, fib, pro, stp, 
       slp, act, men, dia } = req.body;
-    const stats = { tracking_date, user_id, rhr, 
-      mhr, bps, bpd, bls, ins, lbs, cal, fat, 
-      car, fib, pro, stp, slp, act, men, dia };
-    TrackingService.trackingUpdate(knex, stats)
+    const data = { rhr, mhr, bps, bpd, bls, 
+      ins, lbs, cal, fat, car, fib, pro, 
+      stp, slp, act, men, dia 
+    };
+    const dataArr = Object.keys(data)
+    const filteredArr = dataArr.filter((stat, i) => data[stat] != "null")
+    const updated = {};
+    console.log('filteredArr key', filteredArr[0], 'data value', data[filteredArr[0]])
+    for(let i = 0; i<filteredArr.length; i++){
+      updated[filteredArr[i]] = data[filteredArr[i]]
+      console.log(updated)
+    }
+    console.log(updated)
+    TrackingService.updateTrackingByDate(knex, id, updated)
+    .then(tracking => {
+      if(!tracking) {
+        return res.status(404).json({
+          error: { message: "Tracking not available" }
+        })
+      }
+      return res.status(200).json(tracking)
+    })
+    .catch(next)
   })
   module.exports = trackingRouter;

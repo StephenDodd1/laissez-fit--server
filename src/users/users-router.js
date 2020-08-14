@@ -8,7 +8,7 @@ const createAuthToken = require("./auth-token");
 usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
   const knex = req.app.get('db')
   const authParam = req.get("Authorization") || "";
-  const authToken = authParam.slice(0, authParam.indexOf(','))
+  const authToken = authParam.slice(0, authParam.length /*indexOf(',')*/)
   console.log("authToken: ", authToken);
 
   let basicToken;
@@ -17,7 +17,7 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
     return res.status(401).json({ error: "Missing basic token" });
   } else {
     console.log("yes auth token");
-    basicToken = authToken.slice(6, authToken.indexOf(","));
+    basicToken = authToken.slice(6, authToken.length /*indexOf(",")*/);
   }
   const [tokenUsername, tokenPassword] = Buffer.from(basicToken, "base64")
     .toString()

@@ -1,5 +1,5 @@
 INSERT INTO tracking (id, user_id, rhr, 
-bps, bpd, bs, steps, weight, activities)
+bps, bpd, bls, stp, lbs, act)
 VALUES
   (1, 1, 60, 120, 80, 90, 10000, 150, 'Lazy Stuff 1'),
   (2, 2, 60, 120, 80, 90, 10000, 150, 'Lazy Stuff 2'),
