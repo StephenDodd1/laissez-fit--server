@@ -7,9 +7,7 @@ const createAuthToken = require("./auth-token");
 
 usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
   const knex = req.app.get('db')
-  const authParam = req.get("Authorization") || "";
-  const authToken = authParam.slice(0, authParam.length /*indexOf(',')*/)
-  console.log("authToken: ", authToken);
+  const authToken = req.get("Authorization") || "";
 
   let basicToken;
   if (!authToken.toLowerCase().startsWith("basic")) {
