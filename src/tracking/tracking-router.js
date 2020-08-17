@@ -6,7 +6,8 @@ const xss = require("xss");
 
 trackingRouter.route("/api/tracking/:user_id/:tracking_date").get((req, res, next) => {
   const knex = req.app.get("db");
-  const date = req.params.tracking_date;
+  const date = req.params.tracking_date.toString();
+  console.log(date)
   const user_id = req.params.user_id;
   TrackingService.getTrackingByDate(knex, date, user_id)
   .then(tracking => {
@@ -24,10 +25,12 @@ trackingRouter
   .route("/api/tracking/:user_id/:tracking_date")
   .post(jsonBodyParser, (req, res, next) => {
     const knex = req.app.get('db')
+    const user_id = req.params.user_id
     const tracking_date = req.params.tracking_date;
-    const { user_id, rhr, mhr, bps, bpd, bls, 
+    const { rhr, mhr, bps, bpd, bls, 
       ins, lbs, cal, fat, car, fib, pro, stp, 
       slp, act, men, dia } = req.body;
+    console.log('...', req.body.rhr,'...',req.body.mhr)
     const data = {
       tracking_date,
       user_id,
@@ -37,7 +40,7 @@ trackingRouter
       bpd, // diastolic blood pressure
       bls, // blood sugar
       ins, // height in inches
-      lbs, // weight in inches
+      lbs, // weight in pounds
       cal, // calories consumed
       fat, // fat consumed
       car, // carbohydrates consumed
@@ -49,7 +52,14 @@ trackingRouter
       men, // mental/emotional/physical state
       dia  // diary of day 
     }
-    TrackingService.createTrackingByDate(knex, data)
+    const dataArr = Object.keys(data)
+    const filteredArr = dataArr.filter((stat, i) => data[stat] != "" && data[stat] != undefined)
+    const updated = {};
+    for(let i = 0; i<filteredArr.length; i++){
+      updated[filteredArr[i]] = data[filteredArr[i]]
+      console.log(updated)
+    }
+    TrackingService.createTrackingByDate(knex, updated)
       .then(tracking => {
       if(!tracking) {
         return res.status(404).json({
