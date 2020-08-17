@@ -9,7 +9,6 @@ const CommentsService = {
        "comments.comment",
        "comments.comment_date"
      )
-     .from('comments')
      .where('article_id', articleId);
  },
   createComment(knex, comment) {

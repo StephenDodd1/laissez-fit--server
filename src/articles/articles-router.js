@@ -25,6 +25,7 @@ articlesRouter.route("/api/articles").get((req, res, next) => {
   })
   .catch(next)
 });
+
 articlesRouter.route("/api/article/").get(jsonBodyParser, (req, res, next) => {
   const knex = req.app.get("db");
   const { searchTerm } = req.body;
@@ -39,6 +40,22 @@ articlesRouter.route("/api/article/").get(jsonBodyParser, (req, res, next) => {
     res.status(200).json(article.map(serializeArticles))
   })
 });
+
+articlesRouter.route("/api/article/:articleId").get((req,res,next) => {
+  const knex = req.app.get("db");
+  const article = req.params.articleId;
+  ArticlesService.getArticle(knex, article).then((article) => {
+    if(!article) {
+      res.status(404).json({
+        error: {message: "did not get articles"}
+      })
+    }
+    console.log(article)
+    res.status(200).json(article.map(serializeArticles))
+  })
+  .catch(next)
+})
+
 articlesRouter.route("/api/article").post(jsonBodyParser, (req, res, next) => {
   const knex = req.app.get("db");
   const { topic, title, content } = req.body;

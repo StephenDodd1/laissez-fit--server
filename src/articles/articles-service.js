@@ -9,6 +9,17 @@ const ArticlesService = {
       "articles.article_date"
     );
 },
+getArticle(knex, article) {
+  return knex("articles")
+    .select(
+      "articles.id",
+      "articles.topic",
+      "articles.title",
+      "articles.content",
+      "articles.article_date"
+    )
+    .where("id", article)
+},
   searchArticle(knex, searchTerm) {
   return knex
     .select(      

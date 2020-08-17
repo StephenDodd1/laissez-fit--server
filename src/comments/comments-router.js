@@ -5,7 +5,7 @@ const jsonBodyParser = express.json();
 const xss = require("xss");
 
 const serializeComments = (comment) => ({
-  userId: comment.user_id,
+  username: comment.username,
   comment: xss(comment.comment)
 })
 commentsRouter.route('/api/:articleId/comments').get((req,res,next) => {
