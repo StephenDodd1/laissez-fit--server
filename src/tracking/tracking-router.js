@@ -30,7 +30,6 @@ trackingRouter
     const { rhr, mhr, bps, bpd, bls, 
       ins, lbs, cal, fat, car, fib, pro, stp, 
       slp, act, men, dia } = req.body;
-    console.log('...', req.body.rhr,'...',req.body.mhr)
     const data = {
       tracking_date,
       user_id,
@@ -57,7 +56,6 @@ trackingRouter
     const updated = {};
     for(let i = 0; i<filteredArr.length; i++){
       updated[filteredArr[i]] = data[filteredArr[i]]
-      console.log(updated)
     }
     TrackingService.createTrackingByDate(knex, updated)
       .then(tracking => {
@@ -84,10 +82,8 @@ trackingRouter
     const dataArr = Object.keys(data)
     const filteredArr = dataArr.filter((stat, i) => data[stat] != null && data[stat] != "")
     const updated = {};
-    console.log('filteredArr key', filteredArr[0], 'data value', data[filteredArr[0]])
     for(let i = 0; i<filteredArr.length; i++){
       updated[filteredArr[i]] = data[filteredArr[i]]
-      console.log(updated)
     }
     TrackingService.updateTrackingByDate(knex, trackingId, updated)
     .then(tracking => {

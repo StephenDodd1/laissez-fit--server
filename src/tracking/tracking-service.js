@@ -15,7 +15,6 @@ const TrackingService = {
   }
   ,
   updateTrackingByDate(knex, tracking_id, data) {
-    console.log(data.tracking_id)
     return knex("tracking")
     .where("id", "=", tracking_id)
     .update(data)

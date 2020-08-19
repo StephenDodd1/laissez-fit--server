@@ -11,17 +11,13 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
 
   let basicToken;
   if (!authToken.toLowerCase().startsWith("basic")) {
-    console.log("no auth token");
     return res.status(401).json({ error: "Missing basic token" });
   } else {
-    console.log("yes auth token");
     basicToken = authToken.slice(6, authToken.length /*indexOf(",")*/);
   }
   const [tokenUsername, tokenPassword] = Buffer.from(basicToken, "base64")
     .toString()
     .split(":");
-  console.log("username: ", tokenUsername);
-  console.log("password: ", tokenPassword);
   if (!tokenUsername || !tokenPassword) {
     return res.status(401).json({
       error: "Unauthorized request",
@@ -29,18 +25,9 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
   }
   UsersService.authenticateUser(knex, tokenUsername, tokenPassword)
     .then((user) => {
-      console.log(
-        "user.password:",
-        user.password,
-        "tokenPassword:",
-        tokenPassword
-      );
-      console.log('user is ', user)
       if (!user || user.password !== tokenPassword) {
-        console.log(user.password);
         return res.status(401).json({ error: "Unauthorized request" });
       } else {const jwtToken = createAuthToken(user);
-      console.log("jwtToken =", jwtToken);
       const data = {jwtToken, user}
       return res.json({ data })};
     })

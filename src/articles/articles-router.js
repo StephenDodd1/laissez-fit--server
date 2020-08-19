@@ -20,7 +20,6 @@ articlesRouter.route("/api/articles").get((req, res, next) => {
         error: {message: "did not get articles"}
       })
     }
-    console.log(articles)
     res.status(200).json(articles.map(serializeArticles))
   })
   .catch(next)
@@ -29,14 +28,12 @@ articlesRouter.route("/api/articles").get((req, res, next) => {
 articlesRouter.route("/api/article/").get(jsonBodyParser, (req, res, next) => {
   const knex = req.app.get("db");
   const { searchTerm } = req.body;
-  console.log(searchTerm)
   ArticlesService.searchArticle(knex, searchTerm).then((article) => {
     if(!article) {
       res.status(404).json({
         error: {message: "did not get articles"}
       })
     }
-    console.log(article)
     res.status(200).json(article.map(serializeArticles))
   })
 });
@@ -50,7 +47,6 @@ articlesRouter.route("/api/article/:articleId").get((req,res,next) => {
         error: {message: "did not get articles"}
       })
     }
-    console.log(article)
     res.status(200).json(article.map(serializeArticles))
   })
   .catch(next)

@@ -28,13 +28,11 @@ commentsRouter.route('/api/:articleId/comment').post(jsonBodyParser, (req,res,ne
   const article_id = req.params.articleId;
   const user_id = req.body.user_id;
   const comment = req.body.comment;
-  console.log('aid', article_id, 'uid', user_id, 'comment', comment)
   const newComment = {
     article_id,
     user_id,
     comment
   }
-  console.log(newComment)
   CommentsService.createComment(knex, newComment)
   .then((comment) => {
     if (!comment) {
