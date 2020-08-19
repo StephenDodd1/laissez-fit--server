@@ -12,7 +12,10 @@
     "migrate": "postgrator --config src/postgrator-config.js"
   },
   "keywords": [],
-  "author": "",
+  "engines": {
+    "node": "12.18.3"
+  },
+  "author": "Stephen Kyle Dodd",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
