@@ -73,23 +73,23 @@ trackingRouter
   //update current or past day
   trackingRouter.route("/api/tracking/:user_id/:tracking_date").patch(jsonBodyParser, (req,res,next) => {
     const knex = req.app.get('db');
-    const { id, rhr, mhr, bps, bpd, bls, 
+    const { tracking_id, rhr, mhr, bps, bpd, bls, 
       ins, lbs, cal, fat, car, fib, pro, stp, 
       slp, act, men, dia } = req.body;
+    const trackingId = tracking_id;
     const data = { rhr, mhr, bps, bpd, bls, 
       ins, lbs, cal, fat, car, fib, pro, 
       stp, slp, act, men, dia 
     };
     const dataArr = Object.keys(data)
-    const filteredArr = dataArr.filter((stat, i) => data[stat] != "null")
+    const filteredArr = dataArr.filter((stat, i) => data[stat] != null && data[stat] != "")
     const updated = {};
     console.log('filteredArr key', filteredArr[0], 'data value', data[filteredArr[0]])
     for(let i = 0; i<filteredArr.length; i++){
       updated[filteredArr[i]] = data[filteredArr[i]]
       console.log(updated)
     }
-    console.log(updated)
-    TrackingService.updateTrackingByDate(knex, id, updated)
+    TrackingService.updateTrackingByDate(knex, trackingId, updated)
     .then(tracking => {
       if(!tracking) {
         return res.status(404).json({

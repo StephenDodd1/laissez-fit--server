@@ -6,7 +6,8 @@ const xss = require("xss");
 
 const serializeComments = (comment) => ({
   username: comment.username,
-  comment: xss(comment.comment)
+  comment: xss(comment.comment),
+  comment_id: comment.id
 })
 commentsRouter.route('/api/:articleId/comments').get((req,res,next) => {
   const knex = req.app.get('db')
