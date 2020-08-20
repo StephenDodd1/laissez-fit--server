@@ -7,7 +7,7 @@ const createAuthToken = require("./auth-token");
 usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
   const knex = req.app.get('db')
   const authToken = req.get("Authorization") || "";
-
+  console.log("route ran")
   let basicToken;
   if (!authToken.toLowerCase().startsWith("basic")) {
     return res.status(401).json({ error: "Missing basic token" });
