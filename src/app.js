@@ -24,10 +24,7 @@ app.set("db", db);
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(
-  cors({
-    origin: CLIENT_ORIGIN,
-    methods: "GET, POST, PATCH, DELETE, OPTIONS"
-  })
+  cors()
 );
 
 app.use(articlesRouter);
