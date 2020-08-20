@@ -19,6 +19,7 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
   const [tokenUsername, tokenPassword] = Buffer.from(basicToken, "base64")
     .toString()
     .split(":");
+  console.log("tokenUsername: ", tokenUsername, "TP: ", tokenPassword)
   if (!tokenUsername || !tokenPassword) {
     return res.status(401).json({
       error: "Unauthorized request",
@@ -26,6 +27,7 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
   }
   UsersService.authenticateUser(knex, tokenUsername, tokenPassword)
     .then((user) => {
+      console.log("user pw is: ",user.password)
       if (!user || user.password !== tokenPassword) {
         return res.status(401).json({ error: "Unauthorized request" });
       } else {const jwtToken = createAuthToken(user);
