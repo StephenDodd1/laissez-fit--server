@@ -1,10 +1,10 @@
 require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
-const cors = require("cors");
+//const cors = require("cors");
 const helmet = require("helmet");
 
-const { NODE_ENV, CLIENT_ORIGIN, DATABASE_URL } = require("./config");
+const { NODE_ENV, /*CLIENT_ORIGIN,*/ DATABASE_URL } = require("./config");
 
 const articlesRouter = require("./articles/articles-router")
 const commentsRouter = require("./comments/comments-router")
@@ -23,9 +23,12 @@ app.set("db", db);
 
 app.use(morgan(morganOption));
 app.use(helmet());
-app.use(
-  cors()
-);
+/*app.use(
+  cors({
+    origin: CLIENT_ORIGIN,
+    methods: "GET, POST, PATCH, DELETE, OPTIONS"
+  })
+);*/
 
 app.use(articlesRouter);
 app.use(commentsRouter);
