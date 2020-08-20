@@ -5,6 +5,7 @@ const jsonBodyParser = express.json();
 const createAuthToken = require("./auth-token");
 
 usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
+  console.log("route ran")
   const knex = req.app.get('db')
   const authToken = req.get("Authorization") || "";
   console.log("route ran")
@@ -34,6 +35,7 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
     .then((data) => {
       return res.status(202).json(data);
     })
+    .catch(next)
 });
 
 usersRouter.route("/api/users").post(jsonBodyParser, (req, res, next) => {
