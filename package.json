@@ -1,41 +1,42 @@
 {
-  "name": "laissez-fit-api",
+  "name": "laissez-fit--server",
   "version": "1.0.0",
-  "description": "lazy fitness app",
+  "description": "RESTful API for Laissez.fit Client.",
   "main": "index.js",
-  "scripts": {
-    "start": "node src/server.js",
-    "test": "mocha --require test/setup.js",
-    "dev": "nodemon src/server.js",
-    "predeploy": "npm audit && npm run migrate:production",
-    "deploy": "git push heroku master",
-    "postdeploy": "npm run migrate:production",
-    "migrate": "postgrator --config src/postgrator-config.js",
-    "migrate:production": "heroku run npm run migrate"
+  "directories": {
+    "test": "test"
   },
-  "keywords": [],
-  "engines": {
-    "node": "12.18.3"
+  "scripts": {
+    "test": "mocha --require test/setup.js",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephendodd1/laissez-fit--server.git"
   },
   "author": "Stephen Kyle Dodd",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stephendodd1/laissez-fit--server/issues"
+  },
+  "homepage": "https://github.com/stephendodd1/laissez-fit--server#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "helmet": "^3.23.3",
+    "helmet": "^4.1.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.5",
+    "moment": "^2.27.0",
     "morgan": "^1.10.0",
-    "node": "^14.8.0",
-    "pg": "^6.4.2",
+    "pg": "^8.3.2",
     "postgrator-cli": "^3.2.0",
+    "supertest": "^4.0.2",
     "xss": "^1.0.8"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^8.1.1",
-    "nodemon": "^2.0.4",
-    "supertest": "^4.0.2"
+    "nodemon": "^2.0.4"
   }
 }
