@@ -1,5 +1,5 @@
 const UsersService = {
-  authenticateUser(knex, username, password){
+  authenticateUser(knex, username){
     return knex('users')
       .where({'username': username})
       .first()
