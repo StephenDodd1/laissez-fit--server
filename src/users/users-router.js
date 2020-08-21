@@ -35,11 +35,11 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
       } else {
         console.log("jwtToken is running");
         const jwtToken = createAuthToken(user);
-        console.log('jwtToken is', jwtToken)
+        console.log("jwtToken is", jwtToken);
+        const data = { jwtToken, user };
+        console.log("jwtToken and user are: ", data);
+        return res.status(202).json({ data });
       }
-      const data = { jwtToken, user };
-      console.log(data);
-      return res.status(202).json({ data });
     })
     .catch(next);
 });
