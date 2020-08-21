@@ -79,6 +79,7 @@ trackingRouter
       ins, lbs, cal, fat, car, fib, pro, 
       stp, slp, act, men, dia 
     };
+    console.log(data)
     const dataArr = Object.keys(data)
     const filteredArr = dataArr.filter((stat, i) => data[stat] != null && data[stat] != "")
     const updated = {};
