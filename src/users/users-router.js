@@ -31,7 +31,9 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
       if (!user || user.password !== tokenPassword) {
         console.log('!user ran')
         return res.status(401).json({ error: "Unauthorized request" });
-      } else {const jwtToken = createAuthToken(user);
+      } else {
+        console.log('jwtToken is running')
+        const jwtToken = createAuthToken(user);
       const data = {jwtToken, user}
       console.log(data)
       return res.status(202).json({ data })};
