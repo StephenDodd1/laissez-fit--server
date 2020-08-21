@@ -25,7 +25,7 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
       error: "Unauthorized request",
     });
   }
-  UsersService.authenticateUser(knex, tokenUsername, tokenPassword)
+  UsersService.authenticateUser(knex, tokenUsername)
     .then((user) => {
       console.log("user pw is: ",user.password)
       if (!user || user.password !== tokenPassword) {
