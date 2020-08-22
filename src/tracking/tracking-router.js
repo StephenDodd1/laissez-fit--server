@@ -11,7 +11,7 @@ trackingRouter.route("/api/tracking/:user_id/:tracking_date").get((req, res, nex
   const user_id = req.params.user_id;
   TrackingService.getTrackingByDate(knex, date, user_id)
   .then(tracking => {
-    if(!tracking) {
+    if(!tracking[0]) {
       console.log(tracking)
       return res.status(404).json({
         error: { message: "Tracking not available" }
