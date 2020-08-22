@@ -12,10 +12,12 @@ trackingRouter.route("/api/tracking/:user_id/:tracking_date").get((req, res, nex
   TrackingService.getTrackingByDate(knex, date, user_id)
   .then(tracking => {
     if(!tracking) {
+      console.log(tracking)
       return res.status(404).json({
         error: { message: "Tracking not available" }
       })
     }
+    console.log(tracking)
     return res.status(200).json(tracking)
   })
   .catch(next)
