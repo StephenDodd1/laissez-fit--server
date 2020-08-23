@@ -66,6 +66,7 @@ trackingRouter
           error: { message: "Tracking not available" }
         })
       }
+      console.log(tracking)
       return res.status(200).json(tracking)
     })
     .catch(next)
