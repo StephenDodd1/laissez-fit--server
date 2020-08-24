@@ -8,14 +8,14 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
   console.log("route ran");
   const knex = req.app.get("db");
   const authToken = req.get("Authorization") || "";
-  console.log("route ran");
+  console.log("route ran with", authToken);
   let basicToken;
   if (!authToken.toLowerCase().startsWith("basic")) {
     return res.status(401).json({ error: "Missing basic token" });
   } else {
     basicToken = authToken.slice(6, authToken.length /*indexOf(",")*/);
   }
-  console.log(basicToken);
+  console.log('basic',basicToken);
   const [tokenUsername, tokenPassword] = Buffer.from(basicToken, "base64")
     .toString()
     .split(":");
@@ -25,7 +25,6 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
       error: "Unauthorized request",
     });
   }
-
   UsersService.authenticateUser(knex, tokenUsername)
     .then((user) => {
       console.log("user pw is: ", user.password);
