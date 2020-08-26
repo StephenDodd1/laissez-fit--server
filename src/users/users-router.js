@@ -5,21 +5,17 @@ const jsonBodyParser = express.json();
 const createAuthToken = require("./auth-token");
 
 usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
-  console.log("route ran");
   const knex = req.app.get("db");
   const authToken = req.get("Authorization") || "";
-  console.log("route ran with", authToken);
   let basicToken;
   if (!authToken.toLowerCase().startsWith("basic")) {
     return res.status(401).json({ error: "Missing basic token" });
   } else {
     basicToken = authToken.slice(6, authToken.length /*indexOf(",")*/);
   }
-  console.log('basic',basicToken);
   const [tokenUsername, tokenPassword] = Buffer.from(basicToken, "base64")
     .toString()
     .split(":");
-  console.log("tokenUsername: ", tokenUsername, "TP: ", tokenPassword);
   if (!tokenUsername || !tokenPassword) {
     return res.status(401).json({
       error: "Unauthorized request",
@@ -27,16 +23,11 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
   }
   UsersService.authenticateUser(knex, tokenUsername)
     .then((user) => {
-      console.log("user pw is: ", user.password);
       if (!user || user.password !== tokenPassword) {
-        console.log("!user ran");
         return res.status(401).json({ error: "Unauthorized request" });
       } else {
-        console.log("jwtToken is running");
         const jwtToken = createAuthToken(user);
-        console.log("jwtToken is", jwtToken);
         const data = { jwtToken, user };
-        console.log("jwtToken and user are: ", data);
         return res.status(202).json({ data });
       }
     })
@@ -44,6 +35,7 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
 });
 
 usersRouter.route("/api/users").post(jsonBodyParser, (req, res, next) => {
+  const knex = req.app.get("db");
   const { email, username, password, name, dob } = req.body;
   const newUser = {
     email,
@@ -52,15 +44,24 @@ usersRouter.route("/api/users").post(jsonBodyParser, (req, res, next) => {
     name,
     dob,
   };
-  UsersService.createUser(req.app.get("db"), newUser)
+  UsersService.createUser(knex, newUser)
     .then((user) => {
       if (!user) {
         res.status(404).json({
           error: { message: "user was not created" },
         });
       }
-      res.json(user);
+      return res.status(200).json()
     })
     .catch(next);
 });
+
+usersRouter.route("/api/users/:user_id").delete((req,res,next) => {
+  const knex = req.app.get('db');
+  const user_id = req.params.user_id;
+  UsersService.deleteUser(knex, user_id)
+  .then(user => {
+    return res.status(200).json()
+  })
+})
 module.exports = usersRouter;

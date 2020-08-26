@@ -7,7 +7,13 @@
     "test": "test"
   },
   "scripts": {
+    "pretest": "npm run migrate -- 1 && npm run seed",
     "test": "mocha --require test/setup.js",
+    "posttest": "npm run migrate -- 0",
+    "migrate": "postgrator --config src/postgrator-config.js",
+    "migrate:test": "env NODE_ENV=test npm run migrate",
+    "migrate:production": "env SSL=true DATABASE_URL=$(heroku config:get DATABASE_URL) npm run migrate",
+    "seed": "psql -d laissez_fit -f ./seeds/seeds.users.sql && psql -d laissez_fit -f ./seeds/seeds.tracking.sql && psql -d laissez_fit -f ./seeds/seeds.articles.sql && psql -d laissez_fit -f ./seeds/seeds.comments.sql",
     "start": "node src/server.js"
   },
   "repository": {

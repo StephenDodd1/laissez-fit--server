@@ -1,7 +1,0 @@
-DROP TABLE IF EXISTS articles;
-
-DROP TABLE IF EXISTS comments;
-
-DROP TABLE IF EXISTS tracking;
-
-DROP TABLE IF EXISTS users cascade;
