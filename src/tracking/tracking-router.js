@@ -79,7 +79,7 @@ trackingRouter
       slp, act, men, dia } = req.body;
     const trackingId = tracking_id;
     const data = { rhr, mhr, bps, bpd, bls, 
-      ins, lbs, cal, fat, car, fib, pro, 
+      ins, lbs, cal, fat, car, fib, pro,
       stp, slp, act, men, dia 
     };
     console.log(data)
@@ -99,5 +99,16 @@ trackingRouter
       return res.status(200).json(tracking)
     })
     .catch(next)
+  }),
+  trackingRouter.route("/api/tracking/:user_id/:tracking_date").delete(jsonBodyParser, (req,res,next) => {
+    const knex = req.app.get('db');
+    const { tracking_id } = req.body;
+    const trackingId = { tracking_id };
+    console.log('trackingId is: ', trackingId)
+    TrackingService.deleteTrackingById(knex, trackingId)
+    .then(item => {
+      return res.status(200).json(item)
+    })
+  .catch(next)
   })
   module.exports = trackingRouter;
