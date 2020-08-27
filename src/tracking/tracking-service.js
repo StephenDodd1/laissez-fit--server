@@ -37,7 +37,7 @@ const TrackingService = {
   },
   deleteTrackingById(knex, tracking_id) {
     console.log('***...tracking_id is:',tracking_id)
-    return knex('tracking').where({id: tracking_id}).del()
+    return knex('tracking').where("id", tracking_id).del()
   }
 }; /*{ rhr: data.rhr, mhr: data.mhr, bps: data.bps, 
 bpd: data.bpd, bls: data.bls, ins: data.ins, 

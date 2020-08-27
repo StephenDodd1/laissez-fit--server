@@ -102,10 +102,9 @@ trackingRouter
   }),
   trackingRouter.route("/api/tracking/:user_id/:tracking_date").delete(jsonBodyParser, (req,res,next) => {
     const knex = req.app.get('db');
-    const { tracking_id } = req.body;
-    const trackingId = { tracking_id };
-    console.log('trackingId is: ', trackingId)
-    TrackingService.deleteTrackingById(knex, trackingId)
+    const tracking_id = req.body.tracking_id;
+    console.log('trackingId is: ', tracking_id)
+    TrackingService.deleteTrackingById(knex, tracking_id)
     .then(item => {
       return res.status(200).json(item)
     })

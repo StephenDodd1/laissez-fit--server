@@ -44,14 +44,14 @@ describe("App", () => {
       }),
         it("delete an entry", () => {
           const data = {
-            "tracking_id": "1",
+            tracking_id: 1,
           };
           return supertest(app)
             .delete("/api/tracking/3/2020-08-27")
             .send(data)
             .expect(200);
         }),
-        it("post new data to all boxes", (done) => {
+        it("post new data to all boxes", () => {
           const data = {
             slp: "456",
             men: "testi",
@@ -74,7 +74,7 @@ describe("App", () => {
           return supertest(app)
             .post("/api/tracking/3/2020-08-25")
             .send(data)
-            .expect(200,done);
+            .expect(200);
         });
     }),
     after("disconnect from db", () => db.destroy());
