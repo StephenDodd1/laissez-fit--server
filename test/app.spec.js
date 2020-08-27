@@ -75,7 +75,33 @@ describe("App", () => {
             .post("/api/tracking/3/2020-08-25")
             .send(data)
             .expect(200);
-        });
+        }),
+        it("patch new data to all boxes", () => {
+          const data = {
+            tracking_id: "2",
+            slp: "456",
+            men: "testi",
+            act: "made some tests",
+            stp: "204",
+            dia: "I updated tests today for my code.",
+            cal: "3456",
+            fat: "56",
+            car: "123",
+            fib: "12",
+            pro: "89",
+            rhr: "78",
+            mhr: "89",
+            bps: "90",
+            bpd: "89",
+            bls: "90",
+            lbs: "123",
+            ins: "78",
+          };
+          return supertest(app)
+            .patch("/api/tracking/3/2020-08-27")
+            .send(data)
+            .expect(200);
+        }),
     }),
     after("disconnect from db", () => db.destroy());
 });
