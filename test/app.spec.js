@@ -101,7 +101,39 @@ describe("App", () => {
             .patch("/api/tracking/3/2020-08-27")
             .send(data)
             .expect(200);
-        }),
+        });
+    }),
+    describe("Articles and comments endpoints", () => {
+      it("All articles fetch", () => {
+        return supertest(app)
+        .get("/api/articles")
+        .expect(200)
+      }),
+      it("delete a comment", () => {
+        const data = {
+          comment_id: 1,
+        };
+        return supertest(app)
+          .delete("/api/comment/1")
+          .send(data)
+          .expect(200);
+      }),
+      it('creates a comment', () => {
+        const comment = {
+          comment: "test",
+          article_id: "1",
+          user_id: "1"
+        }
+        return supertest(app)
+        .post('/api/1/comment')
+        .send(comment)
+        .expect(200)
+      })
+      it("All comments fetch", () => {
+        return supertest(app)
+        .get("/api/2/comments")
+        .expect(200)
+      })
     }),
     after("disconnect from db", () => db.destroy());
 });
