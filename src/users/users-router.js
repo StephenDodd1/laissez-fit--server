@@ -44,6 +44,13 @@ usersRouter.route("/api/users").post(jsonBodyParser, (req, res, next) => {
     name,
     dob,
   };
+  UsersService.authenticateUser(knex, username).then((user) => {
+    if (user) {
+      res.status(404).json({
+        error: { message: "username is taken" },
+      });
+    }
+  });
   UsersService.createUser(knex, newUser)
     .then((user) => {
       if (!user) {
@@ -51,17 +58,16 @@ usersRouter.route("/api/users").post(jsonBodyParser, (req, res, next) => {
           error: { message: "user was not created" },
         });
       }
-      return res.status(200).json()
+      return res.status(200).json();
     })
     .catch(next);
 });
 
-usersRouter.route("/api/users/:user_id").delete((req,res,next) => {
-  const knex = req.app.get('db');
+usersRouter.route("/api/users/:user_id").delete((req, res, next) => {
+  const knex = req.app.get("db");
   const user_id = req.params.user_id;
-  UsersService.deleteUser(knex, user_id)
-  .then(user => {
-    return res.status(200).json()
-  })
-})
+  UsersService.deleteUser(knex, user_id).then((user) => {
+    return res.status(200).json();
+  });
+});
 module.exports = usersRouter;

@@ -1,8 +1,8 @@
-# Laissez.fit API
+## Laissez.fit API
 
 RESTful API for Laissez.fit Client. 
 
-## Introduction
+# Introduction
 
 This app addresses the problems that arise from our modern "lazy" lifestyles. 
 If we could manage to be a little more active, and a little less stressed, and
@@ -12,7 +12,7 @@ things we don't think possible. We can age better and live smarter and do
 more by doing less. If this sounds like something for you then Laissez.fit is 
 the fitness tracking and awareness app for you. 
 
-## Usage
+# Usage
 
 Tracking is a achieved by typing your data into the input fields. While a 
 wearable is great here, there are metrics you can take that a wearable cannot
@@ -26,6 +26,8 @@ calories consumed at the given time. If you had 400 calories in the morning,
 then 800 at lunch, you would add the two and input 1200. Also, users can add 
 comments and delete their own comments. 
 
-## Stack
+# Stack
 
 Express with Postgres DB
+
+#
