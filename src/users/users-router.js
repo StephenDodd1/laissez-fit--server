@@ -34,7 +34,8 @@ usersRouter.route("/api/user").post(jsonBodyParser, (req, res, next) => {
     .catch(next);
 });
 
-usersRouter.route("/api/users").post(jsonBodyParser, (req, res, next) => {
+usersRouter.route("/api/users")
+  .post(jsonBodyParser, (req, res, next) => {
   const knex = req.app.get("db");
   const { email, username, password, name, dob } = req.body;
   const newUser = {
@@ -45,8 +46,8 @@ usersRouter.route("/api/users").post(jsonBodyParser, (req, res, next) => {
     dob,
   };
   UsersService.authenticateUser(knex, username).then((user) => {
-    if (user) {
-      res.status(404).json({
+    if(user) {
+      res.status(400).json({
         error: { message: "username is taken" },
       });
     }
