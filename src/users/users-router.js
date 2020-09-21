@@ -46,8 +46,8 @@ usersRouter.route("/api/users").post(jsonBodyParser, (req, res, next) => {
   };
   UsersService.authenticateUser(knex, username).then((user) => {
     if (user) {
-      res.status(400).json({
-        error: { message: "username is taken" },
+      return res.status(400).json({
+        error: "Username is already taken" 
       });
     }
   });
