@@ -2,6 +2,10 @@
 
 RESTful API for Laissez.fit Client. 
 
+# Live App
+
+https://laissez-fit-client.vercel.app/
+
 # Introduction
 
 This app addresses the problems that arise from our modern "lazy" lifestyles. 
@@ -25,6 +29,10 @@ the day, you can, just remember that you do have to put the whole number of
 calories consumed at the given time. If you had 400 calories in the morning, 
 then 800 at lunch, you would add the two and input 1200. Also, users can add 
 comments and delete their own comments. 
+
+Endpoints include articles, comments, tracking and users. Each contains a service with knex to process requests. The users endpoint is configured to create a user or login a user. The articles endpoint simply gets the articles, then the client orders them by topic. The comments endpoint includes functionality to add or delete comments, and the article id is pulled to send to the database through the service and attach it to the article.
+
+Tracking includes many fields, but none of them are required. Some fields are numerical, but will remove non-integer characters. For example if 1500 calories was entered, then it would take 1500 and insert that into the database.
 
 # Stack
 
