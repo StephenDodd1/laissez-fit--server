@@ -16,6 +16,22 @@ things we don't think possible. We can age better and live smarter and do
 more by doing less. If this sounds like something for you then Laissez.fit is 
 the fitness tracking and awareness app for you. 
 
+# Methods
+
+There are four main endpoints including login and signup, which are POST requests, tracking which includes a GET, UPDATE, and POST endpings, articles includes a GET request, and lastly, the comments include a GET, POST and DELETE. 
+
+# URL Params
+
+Articles GET for a specific article will include an article_id param
+
+Comments DELETE endpoint will include the comment_id as a param.
+
+Comments GET and POST will include an article_id param.
+
+Tracking endpoints will all include an user_id and tracking_date param.
+
+The DELETE method on the users endpoint includes a user_id param.
+
 # Usage
 
 Tracking is a achieved by typing your data into the input fields. While a 
