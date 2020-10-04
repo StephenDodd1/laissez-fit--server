@@ -22,15 +22,37 @@ There are four main endpoints including login and signup, which are POST request
 
 # URL Params
 
-Articles GET for a specific article will include an article_id param
+Articles GET for a specific article must include an article_id param which is an integer
 
-Comments DELETE endpoint will include the comment_id as a param.
+Comments DELETE endpoint must include the comment_id as a param and is an integer.
 
-Comments GET and POST will include an article_id param.
+Comments GET and POST must include an article_id param, which is an integer.
 
-Tracking endpoints will all include an user_id and tracking_date param.
+Tracking endpoints must all include an user_id as an integer followed by tracking_date as a date formatted as YYYY-MM-D.
 
-The DELETE method on the users endpoint includes a user_id param.
+The DELETE method on the users endpoint must include a user_id param as an integer.
+
+# Data Params
+
+The Tracking endpoint includes the following optional body params:<br />
+
+      rhr - resting heart rate
+      mhr - max heart rate
+      bps - systolic blood pressure
+      bpd - diastolic blood pressure
+      bls - blood sugar
+      ins - height in inches
+      lbs - weight in pounds
+      cal - calories consumed
+      fat - fat consumed
+      car - carbohydrates consumed
+      fib - fiber consumed
+      pro - protein consumed
+      stp - steps for the day
+      slp - sleep in minutes
+      act - activities
+      men - mental/emotional/physical state
+      dia - diary of day
 
 # Usage
 
