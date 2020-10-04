@@ -1,12 +1,12 @@
-## Laissez.fit API
+# Laissez.fit API
 
 RESTful API for Laissez.fit Client. 
 
-# Live App
+## Live App
 
 https://laissez-fit-client.vercel.app/
 
-# Introduction
+## Introduction
 
 This app addresses the problems that arise from our modern "lazy" lifestyles. 
 If we could manage to be a little more active, and a little less stressed, and
@@ -16,11 +16,11 @@ things we don't think possible. We can age better and live smarter and do
 more by doing less. If this sounds like something for you then Laissez.fit is 
 the fitness tracking and awareness app for you. 
 
-# Methods
+## Methods
 
 There are four main endpoints including login and signup, which are POST requests, tracking which includes a GET, UPDATE, and POST endpings, articles includes a GET request, and lastly, the comments include a GET, POST and DELETE. 
 
-# URL Params
+## URL Params
 
 Articles GET for a specific article must include an article_id param which is an integer
 
@@ -32,7 +32,7 @@ Tracking endpoints must all include an user_id as an integer followed by trackin
 
 The DELETE method on the users endpoint must include a user_id param as an integer.
 
-# Data Params
+## Data Params
 
 The Tracking endpoint includes the following optional body params:<br />
 
@@ -54,7 +54,7 @@ The Tracking endpoint includes the following optional body params:<br />
       men - mental/emotional/physical state
       dia - diary of day
 
-# Usage
+## Usage
 
 Tracking is a achieved by typing your data into the input fields. While a 
 wearable is great here, there are metrics you can take that a wearable cannot
@@ -72,11 +72,11 @@ Endpoints include articles, comments, tracking and users. Each contains a servic
 
 Tracking includes many fields, but none of them are required. Some fields are numerical, but will remove non-integer characters. For example if 1500 calories was entered, then it would take 1500 and insert that into the database.
 
-# Stack
+## Stack
 
 Express with Postgres DB
 
-# Screenshots
+## Screenshots
 
 ![image info](./Tracking.png)
 ![image info](./Articles.png)
