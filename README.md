@@ -2,7 +2,7 @@
 
 RESTful API for Laissez.fit Client. 
 
-## Live App
+# Live App
 
 https://laissez-fit-client.vercel.app/
 
