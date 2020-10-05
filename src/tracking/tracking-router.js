@@ -62,7 +62,7 @@ trackingRouter
     TrackingService.createTrackingByDate(knex, updated)
       .then(tracking => {
       if(!tracking) {
-        return res.status(404).json({
+        return res.status(204).json({
           error: { message: "Tracking not available" }
         })
       }
@@ -92,7 +92,7 @@ trackingRouter
     TrackingService.updateTrackingByDate(knex, trackingId, updated)
     .then(tracking => {
       if(!tracking) {
-        return res.status(404).json({
+        return res.status(204).json({
           error: { message: "Tracking not available" }
         })
       }
