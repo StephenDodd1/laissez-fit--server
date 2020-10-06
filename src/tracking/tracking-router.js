@@ -59,6 +59,11 @@ trackingRouter
     for(let i = 0; i<filteredArr.length; i++){
       updated[filteredArr[i]] = data[filteredArr[i]]
     }
+    if(Object.values(updated) < 3){
+      return status(204).json({
+        error: { message: "No data in tracking form"}
+      })
+    }
     TrackingService.createTrackingByDate(knex, updated)
       .then(tracking => {
       if(!tracking) {
