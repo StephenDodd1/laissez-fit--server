@@ -60,6 +60,7 @@ trackingRouter
       updated[filteredArr[i]] = data[filteredArr[i]]
     }
     if(Object.values(updated) < 3){
+      console.log(Object.values(updated))
       return status(204).json({
         error: { message: "No data in tracking form"}
       })
