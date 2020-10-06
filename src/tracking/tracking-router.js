@@ -59,7 +59,7 @@ trackingRouter
     for(let i = 0; i<filteredArr.length; i++){
       updated[filteredArr[i]] = data[filteredArr[i]]
     }
-    console.log(Object.values(updated))
+    console.log('******',Object.keys(updated))
     if(Object.values(updated) < 3){
       console.log(Object.values(updated))
       return status(204).json({
