@@ -69,6 +69,7 @@ trackingRouter
     TrackingService.createTrackingByDate(knex, updated)
       .then(tracking => {
       if(!tracking) {
+        console.log('tracking not found', tracking)
         return res.status(204).json({
           error: { message: "Tracking not available" }
         })
